@@ -67,6 +67,7 @@ def fetch_git_repos(uname):
 def clone(url):
     print(threading.current_thread().getName() + " starting to clone "+ url)
     system(f"git clone {url}")
+    time.sleep(2)
 
 
 def process_repos(repo_json):
