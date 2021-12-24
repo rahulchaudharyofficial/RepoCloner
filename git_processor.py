@@ -6,9 +6,11 @@
 
 import json
 import time
+import threading
 from os import system
 from os import path,rename
 from requests import get
+
 
 
 def fetch_json(uname):
@@ -63,9 +65,16 @@ def fetch_git_repos(uname):
 
 
 def clone(url):
+    print(threading.current_thread().getName() + " starting to clone "+ url)
     system(f"git clone {url}")
 
 
 def process_repos(repo_json):
+    threads = []
     for repo in repo_json:
-        print(repo["git_url"])
+        arg = repo["git_url"]
+        threads.append(threading.Thread(target=clone,args=(arg,)))
+    
+    for t in threads:
+        t.start()
+        t.join()
