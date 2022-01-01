@@ -8,7 +8,7 @@ import json
 import time
 import threading
 from os import system
-from os import path,rename
+from os import path,rename,mkdir,chdir
 from requests import get
 
 
@@ -35,6 +35,12 @@ def fetch_git_repos(uname):
             fetch = True
             choice = None
             cacheAvailble = False
+            if path.exists(uname) and path.isdir(uname):
+                print(f"{uname} directory already exists.")
+            else:
+                mkdir(uname)
+            chdir(uname)
+            
             if path.exists(output_file):
                 cacheAvailble = True
                 choice = input("Found cache for given username: use cache? (yes/no)")
