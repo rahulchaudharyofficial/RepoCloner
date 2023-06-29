@@ -79,7 +79,7 @@ def clone(url):
 def process_repos(repo_json):
     threads = []
     for repo in repo_json:
-        arg = repo["git_url"]
+        arg = repo["clone_url"]
         threads.append(threading.Thread(target=clone,args=(arg,)))
     
     for t in threads:
